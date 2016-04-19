@@ -8,7 +8,7 @@ class Admin_model extends CI_Model{
 
     public function get_anime($id = FALSE)
     {
-        if($slug === FALSE)
+        if($id === FALSE)
         {
             $query = $this->db->get('anm_main');
             return $query;

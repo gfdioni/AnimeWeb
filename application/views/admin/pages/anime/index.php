@@ -49,11 +49,11 @@ $dir= $_SERVER['DOCUMENT_ROOT']."/ci_project/anime/application/views/admin/"; ?>
                     </div>
                     <div class="form-group">
                       <label for="InputDescription">Description</label>
-                      <textarea class="form-control" rows="3" name="InputDescription" plinstead of bring condom, i rather bring hearing aid --"aceholder="Enter Description Here..."></textarea>
+                      <textarea class="form-control" rows="3" id="InputDescription" name="InputDescription" paceholder="Enter Description Here..."></textarea>
                     </div>
                     <div class="form-group">
                       <label for="InputGenre">Genre</label>
-						<select class="form-control select2" name="InputGenre" multiple="multiple" data-placeholder="Select Genres" style="width: 100%;">
+						<select class="form-control" name="InputGenre"  id="InputGenre" multiple="multiple" data-placeholder="Select Genres" style="width: 100%;">
 					  <option>Action</option>
                       <option>Adventure</option>
                       <option>Comedy</option>

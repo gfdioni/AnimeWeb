@@ -217,7 +217,7 @@
             },
 			"autoWidth": true
         });
-		$(".select2").select2();
+		$("#InputGenre").select2();
 		$('#anime_full tbody').on( 'click', 'tr', function () {
 			if ( $(this).hasClass('selected') ) {
 				$(this).removeClass('selected');
@@ -230,7 +230,20 @@
 					$.each($(rowData),function(key,value){
 						dataArr.push(value["id"]);
 					});
-					console.log(dataArr);
+					var anime_id=dataArr.toString();
+					$.ajax({
+						type: "POST",
+						url: "<?php $admin; ?>getdata",
+						data: {"id":anime_id},
+						dataType: "json",
+						success: function(data){
+							//alert(data[0].title);
+							console.log(data[0]);
+							document.getElementById("InputTitle").value = data[0].title;
+							document.getElementById("InputDescription").value = data[0].desc_panjang;
+							$("#InputGenre").select2("val",data[0].genre);
+						}
+					});
 			}
 		});
 		

@@ -13,6 +13,7 @@ class Admin extends CI_Controller
         $this->load->library('Datatables');
         $this->load->library('table');
         $this->load->helper('Datatables');
+        $this->load->helper('form');
     }
 
     function table_gen(){
@@ -71,11 +72,10 @@ class Admin extends CI_Controller
 
     public function getData()
     {
-        $anime_id = $this->input->post('anime_id');
-        $data['anime'] = $this->admin_model->get_anime($anime_id);
+        $anime_id = $this->input->post('id');
+        $data[] = $this->admin_model->get_anime($anime_id);
         $this->output->set_content_type('application/json');
         $this->output->set_output(json_encode($data));
-        return $data;
     }
 
     public function delete()
