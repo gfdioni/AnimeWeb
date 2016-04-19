@@ -173,7 +173,7 @@
     </div><!-- ./wrapper -->
 
     <!-- jQuery 2.1.4 -->
-    <script src="<?php echo $assets; ?>plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<?php echo $assets; ?>plugins/jQuery/jQuery-2.2.0.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -239,12 +239,21 @@
 						success: function(data){
 							//alert(data[0].title);
 							console.log(data[0]);
-							document.getElementById("InputTitle").value = data[0].title;
-							document.getElementById("InputDescription").value = data[0].desc_panjang;
+							$("#InputTitle").val(data[0].title);
+							$("#InputDescription").val(data[0].desc_panjang);
 							$("#InputGenre").select2("val",data[0].genre);
+							$(".btn-khusus").prop('disabled', false);
 						}
 					});
+					
 			}
+		});
+		$('#btnReset').on('click', function(){
+			$("#InputTitle").val('');
+			$("#InputDescription").val('');
+			$("#InputGenre").select2("val","");
+			$(".btn-khusus").prop('disabled', true);
+			table.$('tr.selected').removeClass('selected');
 		});
 		
     });

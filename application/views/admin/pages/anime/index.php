@@ -37,7 +37,7 @@ $dir= $_SERVER['DOCUMENT_ROOT']."/ci_project/anime/application/views/admin/"; ?>
 
 					</div>
               </div><!-- /.box -->
-			 <div class="box">
+			 <div class="box box-info">
                 <div class="box-header with-border">
                   <h3 class="box-title">Management</h3>
                 </div><!-- /.box-header -->
@@ -49,7 +49,7 @@ $dir= $_SERVER['DOCUMENT_ROOT']."/ci_project/anime/application/views/admin/"; ?>
                     </div>
                     <div class="form-group">
                       <label for="InputDescription">Description</label>
-                      <textarea class="form-control" rows="3" id="InputDescription" name="InputDescription" paceholder="Enter Description Here..."></textarea>
+                      <textarea class="form-control" rows="3" id="InputDescription" name="InputDescription" placeholder="Enter Description Here..."></textarea>
                     </div>
                     <div class="form-group">
                       <label for="InputGenre">Genre</label>
@@ -68,6 +68,8 @@ $dir= $_SERVER['DOCUMENT_ROOT']."/ci_project/anime/application/views/admin/"; ?>
 
                   <div class="box-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
+					<button type="submit" class="btn btn-primary btn-khusus" id="btnEdit" disabled>Save Edit</button>
+					<button type="reset" class="btn btn-primary btn-khusus" id="btnReset" disabled>Clear</button>
                   </div>
                 </form>
               </div>
