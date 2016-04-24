@@ -34,3 +34,6 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 !*/cache/index.html
 !*/cache/.htaccess
 >>>>>>> 347de0dfc3fac56761b68e38db63ed8a060759da
+/db/sql
+/db/userguide
+/assets/adminlte/backup
