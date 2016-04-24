@@ -41,26 +41,32 @@ $dir= $_SERVER['DOCUMENT_ROOT']."/ci_project/anime/application/views/admin/"; ?>
                 <div class="box-header with-border">
                   <h3 class="box-title">Management</h3>
                 </div><!-- /.box-header -->
-                <form role="form" method="post" action="<?php echo $admin."add"; ?>" >
+                <form role="form" method="post" action="<?php echo $admin."add/"; ?>" >
                   <div class="box-body">
+					<div class="form-group">
+                      <label for="IdAnime">Anime ID</label>
+                      <input type="text" class="form-control" id="IdAnime_show" name="IdAnime_show" placeholder="Automatically Added" disabled>
+					  <input type="hidden" id="IdAnime" name="IdAnime" value="">
+                    </div>
                     <div class="form-group">
                       <label for="InputTitle">Anime Title</label>
                       <input type="text" class="form-control" id="InputTitle" name="InputTitle" placeholder="Enter Title">
                     </div>
                     <div class="form-group">
                       <label for="InputDescription">Description</label>
-                      <textarea class="form-control" rows="3" id="InputDescription" name="InputDescription" placeholder="Enter Description Here..."></textarea>
+                      <textarea class="form-control" rows="5" id="InputDescription" name="InputDescription" placeholder="Enter Description Here..."></textarea>
                     </div>
                     <div class="form-group">
                       <label for="InputGenre">Genre</label>
-						<select class="form-control" name="InputGenre"  id="InputGenre" multiple="multiple" data-placeholder="Select Genres" style="width: 100%;">
-					  <option>Action</option>
-                      <option>Adventure</option>
-                      <option>Comedy</option>
-                      <option>Drama</option>
-                      <option>Ecchi</option>
-                      <option>Fantasy</option>
-                      <option>Game</option>
+						<select class="form-control" name="InputGenre[]" id="InputGenre" multiple="" style="width: 100%;">
+					  <option value="0"></option>
+					  <option value="1">Action</option>
+                      <option value="2">Adventure</option>
+                      <option value="3">Comedy</option>
+                      <option value="4">Drama</option>
+                      <option value="5">Ecchi</option>
+                      <option value="6">Fantasy</option>
+                      <option value="7">Game</option>
 						</select>
                     </div>
 
@@ -68,7 +74,6 @@ $dir= $_SERVER['DOCUMENT_ROOT']."/ci_project/anime/application/views/admin/"; ?>
 
                   <div class="box-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
-					<button type="submit" class="btn btn-primary btn-khusus" id="btnEdit" disabled>Save Edit</button>
 					<button type="reset" class="btn btn-primary btn-khusus" id="btnReset" disabled>Clear</button>
                   </div>
                 </form>

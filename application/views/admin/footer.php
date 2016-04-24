@@ -217,7 +217,10 @@
             },
 			"autoWidth": true
         });
-		$("#InputGenre").select2();
+		$("#InputGenre").select2({
+		placeholder: "Select a release...",
+		tags: true
+		});
 		$('#anime_full tbody').on( 'click', 'tr', function () {
 			if ( $(this).hasClass('selected') ) {
 				$(this).removeClass('selected');
@@ -239,16 +242,31 @@
 						success: function(data){
 							//alert(data[0].title);
 							console.log(data[0]);
+							//console.log(data[0].genre);
+							//console.log(selectedValues);
+							$("#IdAnime_show").val(data[0].id);
+							$("#IdAnime").val(data[0].id);
 							$("#InputTitle").val(data[0].title);
 							$("#InputDescription").val(data[0].desc_panjang);
-							$("#InputGenre").select2("val",data[0].genre);
-							$(".btn-khusus").prop('disabled', false);
+							if(data[0].genre != ""){
+								var json = $.parseJSON(data[0].genre);
+								var selectedValues = [];
+								$.each(json, function(bb) {
+							   selectedValues.push(json[bb]);
+								});
+								$("#InputGenre").val(selectedValues).trigger("change");
+							} else {
+								$("#InputGenre").val([""]).trigger("change");
+							}
+								$(".btn-khusus").prop('disabled', false);
 						}
 					});
 					
 			}
 		});
 		$('#btnReset').on('click', function(){
+			$("#IdAnime_show").val('');
+			$("#IdAnime").val('');
 			$("#InputTitle").val('');
 			$("#InputDescription").val('');
 			$("#InputGenre").select2("val","");

@@ -23,4 +23,10 @@ class Admin_model extends CI_Model{
        return $this->db->insert('anm_main',$data);
     }
 
+    public function update_anime($id, $data)
+    {
+        $this->db->where('id',$id);
+        return $this->db->update('anm_main',$data);
+    }
+
 }

@@ -52,22 +52,37 @@ class Admin extends CI_Controller
 
     public function add()
     {
-            $title = $this->input->post('InputTitle');
-            $deskripsi = $this->input->post('InputDescription');
-            $pecah=explode(".",$deskripsi,3);
-            $deskripsi_singkat = $pecah[0].'.'.$pecah[1].'.';
-            $genre = $this->input->post('InputGenre');
+        $title = $this->input->post('InputTitle');
+        $deskripsi = $this->input->post('InputDescription');
+        $pecah = explode(".", $deskripsi, 3);
+        $deskripsi_singkat = $pecah[0] . '.' . $pecah[1] . '.';
+        $genre = json_encode($this->input->post('InputGenre'));
 
-            $data = array(
-                'title' => $title,
-                'desc_panjang' => $deskripsi,
-                'desc_pendek' => $deskripsi_singkat,
-                'genre' => $genre,
-            );
+        $data = array(
+            'title' => $title,
+            'desc_panjang' => $deskripsi,
+            'desc_pendek' => $deskripsi_singkat,
+            'genre' => $genre,
+        );
 
-        $this->admin_model->add_anime($data);
-        redirect('admin/anime/');
+        if ($this->input->post('IdAnime') === FALSE) {
 
+            $this->admin_model->add_anime($data);
+
+           //echo "id anime:".$this->input->post('IdAnime');
+            //print_r($data);
+
+        } else {
+
+            $id = $this->input->post('IdAnime');
+
+            $this->admin_model->update_anime($id, $data);
+
+            //echo "id anime:".$this->input->post('IdAnime');
+            //print_r($data);
+        }
+
+       redirect('admin/anime/');
     }
 
     public function getData()
@@ -79,11 +94,6 @@ class Admin extends CI_Controller
     }
 
     public function delete()
-    {
-
-    }
-
-    public function update()
     {
 
     }
