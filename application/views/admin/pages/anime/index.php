@@ -1,3 +1,4 @@
+84 lines (80 sloc)  3.6 KB
 <?php
 $title="Anime Management";
 $assets= base_url()."assets/adminlte/";
@@ -69,7 +70,15 @@ $dir= $_SERVER['DOCUMENT_ROOT']."/ci_project/anime/application/views/admin/"; ?>
                       <option value="7">Game</option>
 						</select>
                     </div>
-
+					<div class="form-group">
+						<label for="InputMalLink">MyAnimeList Link</label>
+						<input type="text" class="form-control" id="InputMalLink" name="InputMalLink" placeholder="Enter MAL Link">
+					</div>
+					<div class="form-group">
+						<label for="InputImage">Input Image Cover</label>
+						<input type="file" id="InputImage" accept="image/*">
+						<p class="help-block">Example block-level help text here.</p>
+					</div>
                   </div><!-- /.box-body -->
 
                   <div class="box-footer">
