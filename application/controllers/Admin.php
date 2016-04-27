@@ -11,6 +11,7 @@ class Admin extends CI_Controller
         $this->load->helper('url_helper');
         $this->load->database();
         $this->load->library('Datatables');
+        $this->load->library('Custom_upload');
         $this->load->library('table');
         $this->load->helper('Datatables');
         $this->load->helper('form');
@@ -50,21 +51,39 @@ class Admin extends CI_Controller
         $this->load->view('admin/pages/anime/index');
     }
 
-    public function add()
+    public function addanime()
     {
         $title = $this->input->post('InputTitle');
+        $eps = $this->input->post('InputEpisode');
         $deskripsi = $this->input->post('InputDescription');
         $pecah = explode(".", $deskripsi, 3);
         $deskripsi_singkat = $pecah[0] . '.' . $pecah[1] . '.';
         $genre = json_encode($this->input->post('InputGenre'));
+        $linkmal= $this->input->post('InputMalLink');
 
-        $data = array(
-            'title' => $title,
-            'desc_panjang' => $deskripsi,
-            'desc_pendek' => $deskripsi_singkat,
-            'genre' => $genre,
-        );
+        if(isset($_FILES['InputImage']))
+        {
+        $fileimage = $this->cus_upload->upload();
+            $data = array(
+                'title' => $title,
+                'eps' => $eps,
+                'desc_panjang' => $deskripsi,
+                'desc_pendek' => $deskripsi_singkat,
+                'genre' => $genre,
+                'image' => $fileimage["full_path"],
+                'linkmal' => $linkmal
+             );
 
+        } else {
+            $data = array(
+                'title' => $title,
+                'eps' => $eps,
+                'desc_panjang' => $deskripsi,
+                'desc_pendek' => $deskripsi_singkat,
+                'genre' => $genre,
+                'linkmal' => $linkmal
+            );
+        }
         if ($this->input->post('IdAnime') === FALSE) {
 
             $this->admin_model->add_anime($data);

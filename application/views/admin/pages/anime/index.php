@@ -1,4 +1,3 @@
-84 lines (80 sloc)  3.6 KB
 <?php
 $title="Anime Management";
 $assets= base_url()."assets/adminlte/";
@@ -53,6 +52,10 @@ $dir= $_SERVER['DOCUMENT_ROOT']."/ci_project/anime/application/views/admin/"; ?>
                       <label for="InputTitle">Anime Title</label>
                       <input type="text" class="form-control" id="InputTitle" name="InputTitle" placeholder="Enter Title">
                     </div>
+					<div class="form-group">
+                      <label for="InputEpisode">Total Episode</label>
+                      <input type="number" class="form-control" id="InputEpisode" name="InputEpisode" placeholder="Enter Total Episode" style="width: 10%" min="0">
+                    </div>
                     <div class="form-group">
                       <label for="InputDescription">Description</label>
                       <textarea class="form-control" rows="5" id="InputDescription" name="InputDescription" placeholder="Enter Description Here..."></textarea>
@@ -76,8 +79,8 @@ $dir= $_SERVER['DOCUMENT_ROOT']."/ci_project/anime/application/views/admin/"; ?>
 					</div>
 					<div class="form-group">
 						<label for="InputImage">Input Image Cover</label>
-						<input type="file" id="InputImage" accept="image/*">
-						<p class="help-block">Example block-level help text here.</p>
+						<input type="file" id="InputImage" name="InputImage" accept="image/*">
+						<p class="help-block">Must *.Jpg, *.png, *.gif<br> Max file size: 20 MB</p>
 					</div>
                   </div><!-- /.box-body -->
 
