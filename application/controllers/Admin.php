@@ -73,7 +73,7 @@ class Admin extends CI_Controller
     public function anime()
     {
         $this->table_gen();
-        $this->load->view('admin/pages/anime/index');
+        $this->load->view('admin/pages/anime_manage/anime');
     }
 
     public function addanime()
