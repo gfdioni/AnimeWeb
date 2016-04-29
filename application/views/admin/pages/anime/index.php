@@ -41,7 +41,7 @@ $dir= $_SERVER['DOCUMENT_ROOT']."/ci_project/anime/application/views/admin/"; ?>
                 <div class="box-header with-border">
                   <h3 class="box-title">Management</h3>
                 </div><!-- /.box-header -->
-                <form role="form" method="post" action="<?php echo $admin."add/"; ?>" >
+                <form role="form" method="post" action="<?php echo $admin."addanime/"; ?>" enctype="multipart/form-data" >
                   <div class="box-body">
 					<div class="form-group">
                       <label for="IdAnime">Anime ID</label>

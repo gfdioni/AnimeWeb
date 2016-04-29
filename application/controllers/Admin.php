@@ -11,7 +11,6 @@ class Admin extends CI_Controller
         $this->load->helper('url_helper');
         $this->load->database();
         $this->load->library('Datatables');
-        $this->load->library('Custom_upload');
         $this->load->library('table');
         $this->load->helper('Datatables');
         $this->load->helper('form');
@@ -22,6 +21,32 @@ class Admin extends CI_Controller
         $this->table->set_template($tmpl);
 
         $this->table->set_heading('ID', 'Judul', 'Deskripsi singkat', '1080p', '720p', '480p');
+    }
+
+    public function do_upload($id_form, $upload_path)
+    {
+        $config['upload_path'] = $upload_path;
+        $config['allowed_types'] = 'gif|jpg|png';
+        $new_name = time() . "_" . $_FILES["InputImage"]['name'];
+        $config['file_name'] = $new_name;
+        $config['max_size'] = '10000';
+        $config['remove_spaces'] = TRUE;
+        $config['encrypt_name'] = FALSE;
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload($id_form)) {
+
+            $data = array('upload_data' => $this->upload->data());
+
+            return $data;
+
+        } else {
+
+            $error = array('error' => $this->upload->display_errors());
+            return $error;
+        }
+
     }
 
     public function index()
@@ -56,24 +81,32 @@ class Admin extends CI_Controller
         $title = $this->input->post('InputTitle');
         $eps = $this->input->post('InputEpisode');
         $deskripsi = $this->input->post('InputDescription');
+        if(substr_count($deskripsi,".") >= 2 && strlen($deskripsi) > 10){
+
         $pecah = explode(".", $deskripsi, 3);
         $deskripsi_singkat = $pecah[0] . '.' . $pecah[1] . '.';
+
+        } else {
+
+            $deskripsi_singkat = $this->input->post('InputDescription');
+
+        }
         $genre = json_encode($this->input->post('InputGenre'));
         $linkmal= $this->input->post('InputMalLink');
 
-        if(isset($_FILES['InputImage']))
+        if(isset($_FILES['InputImage']['name']) && !empty($_FILES['InputImage']['name']))
         {
-        $fileimage = $this->cus_upload->upload();
+        $fileimage = $this->do_upload('InputImage',"./uploads/anime/");
             $data = array(
                 'title' => $title,
                 'eps' => $eps,
                 'desc_panjang' => $deskripsi,
                 'desc_pendek' => $deskripsi_singkat,
                 'genre' => $genre,
-                'image' => $fileimage["full_path"],
-                'linkmal' => $linkmal
-             );
+                'linkmal' => $linkmal,
+                'image_name' => $fileimage['upload_data']["file_name"]
 
+             );
         } else {
             $data = array(
                 'title' => $title,
@@ -82,25 +115,28 @@ class Admin extends CI_Controller
                 'desc_pendek' => $deskripsi_singkat,
                 'genre' => $genre,
                 'linkmal' => $linkmal
+
             );
         }
-        if ($this->input->post('IdAnime') === FALSE) {
+        if ($this->input->post('IdAnime') == '') {
 
-            $this->admin_model->add_anime($data);
+           $result = $this->admin_model->add_anime($data);
 
            //echo "id anime:".$this->input->post('IdAnime');
-            //print_r($data);
+
 
         } else {
 
             $id = $this->input->post('IdAnime');
 
-            $this->admin_model->update_anime($id, $data);
+            $result = $this->admin_model->update_anime($id, $data);
 
             //echo "id anime:".$this->input->post('IdAnime');
-            //print_r($data);
+
         }
 
+        //print_r($data);
+        //print_r($result);
        redirect('admin/anime/');
     }
 

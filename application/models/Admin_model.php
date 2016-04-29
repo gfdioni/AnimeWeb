@@ -20,7 +20,7 @@ class Admin_model extends CI_Model{
 
     public function add_anime($data)
     {
-       return $this->db->insert('anm_main',$data);
+        return $this->db->insert('anm_main', $data);
     }
 
     public function update_anime($id, $data)
