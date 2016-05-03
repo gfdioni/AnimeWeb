@@ -172,116 +172,15 @@
       <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
 
-    <!-- jQuery 2.1.4 -->
-    <script src="<?php echo $assets; ?>plugins/jQuery/jQuery-2.2.0.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
       $.widget.bridge('uibutton', $.ui.button);
     </script>
-	<script type="text/javascript">	
-    $(document).ready(function () {
-        var table = $('#anime_full').DataTable({
-            "bProcessing": true,
-			//"bServerSide": true,
-            "sAjaxSource": '<?php echo base_url(); ?>index.php/admin/loadtable',
-			"sServerMethod": "POST",
-            "bJQueryUI": true,
-            "sPaginationType": "full_numbers",
-            "iDisplayStart ": 1,
-			"start": 1,
-			"columns": [
-				{ "data": "id" },
-				{ "data": "title" },
-				{ "data": "desc_pendek",  "orderable": false },
-				{ "data": "r_1080",  "orderable": false },
-				{ "data": "r_720",  "orderable": false },
-				{ "data": "r_480",  "orderable": false }
-				],
-            "oLanguage": {
-                "sProcessing": "<img src='<?php echo base_url(); ?>assets/adminlte/plugins/datatables/images/ajax-loader_dark.gif'>"
-            },
-            "fnInitComplete": function () {
-                //oTable.fnAdjustColumnSizing();
-            },
-            'fnServerData': function (sSource, aoData, fnCallback) {
-                $.ajax
-                ({
-                    'dataType': 'json',
-                    'type': "POST",
-                    'url': sSource,
-                    'data': aoData,
-                    'success': fnCallback
-                });
-            },
-			"autoWidth": true
-        });
-		$("#InputGenre").select2({
-		placeholder: "Select a release...",
-		tags: true
-		});
-		$('#anime_full tbody').on( 'click', 'tr', function () {
-			if ( $(this).hasClass('selected') ) {
-				$(this).removeClass('selected');
-			}
-			else {
-				table.$('tr.selected').removeClass('selected');
-				$(this).addClass('selected');
-				    var dataArr = [];
-					var rowData = table.rows('tr.selected').data();
-					$.each($(rowData),function(key,value){
-						dataArr.push(value["id"]);
-					});
-					var anime_id=dataArr.toString();
-					$.ajax({
-						type: "POST",
-						url: "<?php $admin; ?>getdata",
-						data: {"id":anime_id},
-						dataType: "json",
-						success: function(data){
-							//alert(data[0].title);
-							console.log(data[0]);
-							//console.log(data[0].genre);
-							//console.log(selectedValues);
-							$("#IdAnime_show").val(data[0].id);
-							$("#IdAnime").val(data[0].id);
-							$("#InputTitle").val(data[0].title);
-							$("#InputDescription").val(data[0].desc_panjang);
-							if(data[0].genre != ""){
-								var json = $.parseJSON(data[0].genre);
-								var selectedValues = [];
-								$.each(json, function(bb) {
-							   selectedValues.push(json[bb]);
-								});
-								$("#InputGenre").val(selectedValues).trigger("change");
-							} else {
-								$("#InputGenre").val([""]).trigger("change");
-							}
-								$(".btn-khusus").prop('disabled', false);
-						}
-					});
-					
-			}
-		});
-		$('#btnReset').on('click', function(){
-			$("#IdAnime_show").val('');
-			$("#IdAnime").val('');
-			$("#InputTitle").val('');
-			$("#InputDescription").val('');
-			$("#InputGenre").select2("val","");
-			$(".btn-khusus").prop('disabled', true);
-			table.$('tr.selected').removeClass('selected');
-		});
-		
-    });
-</script>
-	
     <!-- Bootstrap 3.3.5 -->
     <script src="<?php echo $assets; ?>bootstrap/js/bootstrap.min.js"></script>
-    <!-- Morris.js charts -->
+    <!-- Morris.js charts 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script src="<?php echo $assets; ?>plugins/morris/morris.min.js"></script>
+    <script src="<?php echo $assets; ?>plugins/morris/morris.min.js"></script>-->
     <!-- Sparkline -->
     <script src="<?php echo $assets; ?>plugins/sparkline/jquery.sparkline.min.js"></script>
     <!-- jvectormap -->
@@ -305,7 +204,7 @@
     <script src="<?php echo $assets; ?>plugins/fastclick/fastclick.min.js"></script>
     <!-- AdminLTE App -->
     <script src="<?php echo $assets; ?>dist/js/app.min.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) 
     <script src="<?php echo $assets; ?>dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="<?php echo $assets; ?>dist/js/demo.js"></script>

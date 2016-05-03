@@ -12,15 +12,42 @@ class Admin extends CI_Controller
         $this->load->database();
         $this->load->library('Datatables');
         $this->load->library('table');
-        $this->load->helper('Datatables');
+        //$this->load->helper('Datatables');
         $this->load->helper('form');
     }
 
-    function table_gen(){
+    function table_gen($id){
+
+        if($id == 1){
         $tmpl = array('table_open' => '<table id="anime_full" class="table table-hover table-responsive table-bordered display" style="width: 100%">');
         $this->table->set_template($tmpl);
 
-        $this->table->set_heading('ID', 'Judul', 'Deskripsi singkat', '1080p', '720p', '480p');
+        $this->table->set_heading('ID', 'Judul', 'Episode', 'Deskripsi singkat');
+        }
+
+        else if($id == 2){
+            $tmpl = array('table_open' => '<table id="genre_table" class="table table-hover table-responsive table-bordered display" style="width: 100%">');
+            $this->table->set_template($tmpl);
+
+            $this->table->set_heading('ID', 'Genre', 'Deskripsi');
+        }
+    }
+
+    public function loadtable()
+    {   $id=$this->input->get("id");
+        if($id == 1) {
+            $this->datatables
+                ->select('id, title, eps, desc_pendek')
+                ->from('main');
+        }
+        else if($id == 2){
+            $this->datatables
+                ->select('id, title, deskripsi')
+                ->from('genre');
+        } else if($id == 3){
+
+        }
+        echo $this->datatables->generate();
     }
 
     public function do_upload($id_form, $upload_path)
@@ -38,7 +65,6 @@ class Admin extends CI_Controller
         if ($this->upload->do_upload($id_form)) {
 
             $data = array('upload_data' => $this->upload->data());
-
             return $data;
 
         } else {
@@ -52,28 +78,20 @@ class Admin extends CI_Controller
     public function index()
     {
         //$data['anime'] = $this->admin_model->get_anime();
-         $this->table_gen();
+         $this->table_gen('1');
         $this->load->view('admin/index');
-    }
-
-    public function loadtable()
-    {
-        $this->datatables
-            ->select('id, title, desc_pendek, r_1080, r_720, r_480')
-            ->unset_column('r_1080')
-            ->unset_column('r_720')
-            ->unset_column('r_480')
-            ->add_column('r_1080', cek('$1'),'r_1080')
-            ->add_column('r_720', cek('$1'),'r_720')
-            ->add_column('r_480', cek('$1'),'r_480')
-            ->from('anm_main');
-        echo $this->datatables->generate();
     }
 
     public function anime()
     {
-        $this->table_gen();
+        $this->table_gen(1);
         $this->load->view('admin/pages/anime_manage/anime');
+    }
+
+    public function genre()
+    {
+        $this->table_gen(2);
+        $this->load->view('admin/pages/options/genre');
     }
 
     public function addanime()
@@ -81,7 +99,7 @@ class Admin extends CI_Controller
         $title = $this->input->post('InputTitle');
         $eps = $this->input->post('InputEpisode');
         $deskripsi = $this->input->post('InputDescription');
-        if(substr_count($deskripsi,".") >= 2 && strlen($deskripsi) > 10){
+        if(substr_count($deskripsi,".") >= 2 && strlen($deskripsi) > 20){
 
         $pecah = explode(".", $deskripsi, 3);
         $deskripsi_singkat = $pecah[0] . '.' . $pecah[1] . '.';
@@ -120,7 +138,7 @@ class Admin extends CI_Controller
         }
         if ($this->input->post('IdAnime') == '') {
 
-           $result = $this->admin_model->add_anime($data);
+           $result = $this->admin_model->add(1, $data);
 
            //echo "id anime:".$this->input->post('IdAnime');
 
@@ -137,13 +155,48 @@ class Admin extends CI_Controller
 
         //print_r($data);
         //print_r($result);
-       redirect('admin/anime/');
+       redirect('admin/genre/');
+    }
+
+    public function addgenre()
+    {
+        $title = $this->input->post('InputTitle');
+        $deskripsi = $this->input->post('InputDescription');
+        $data = array(
+            'title' => $title,
+            'deskripsi' => $deskripsi,
+        );
+        $this->admin_model->add(2, $data);
+        redirect("admin/genre/");
+    }
+
+    public function getgenre()
+    {
+        if(($this->input->post('id') == "") && ($this->input->get('q') == "")){
+            $data = $this->admin_model->get_genre();
+        } else if($this->input->get('q') !== ""){
+            $search = strip_tags(trim($this->input->get('q')));
+            $hasil= $this->admin_model->search_genre($search);
+            if(count($hasil) > 0){
+                foreach ($hasil as $key => $value) {
+                    $data[] = array('id' => $value['id'], 'text' => $value['title']);
+                }
+            } else {
+                $data[] = array('id' => '0', 'text' => 'No Products Found');
+            }
+        } else {
+            $id = $this->input->post('id');
+            $data = $this->admin_model->get_genre($id);
+        }
+
+        $this->output->set_content_type('application/json');
+        $this->output->set_output(json_encode($data));
     }
 
     public function getData()
     {
-        $anime_id = $this->input->post('id');
-        $data[] = $this->admin_model->get_anime($anime_id);
+        $id = $this->input->post('id');
+        $data[] = $this->admin_model->get_anime($id);
         $this->output->set_content_type('application/json');
         $this->output->set_output(json_encode($data));
     }
