@@ -31,6 +31,27 @@ class Admin extends CI_Controller
 
             $this->table->set_heading('ID', 'Genre', 'Deskripsi');
         }
+
+        else if($id == 3){
+            $tmpl = array('table_open' => '<table id="eps_table" class="table table-hover table-responsive table-bordered display" style="width: 100%">');
+            $this->table->set_template($tmpl);
+
+            $this->table->set_heading('ID', 'Anime Title', 'Episode', 'Resolution', 'File Hosting', 'Link');
+        }
+
+        else if($id == 4){
+            $tmpl = array('table_open' => '<table id="filehost_table" class="table table-hover table-responsive table-bordered display" style="width: 100%">');
+            $this->table->set_template($tmpl);
+
+            $this->table->set_heading('ID', 'File Hosting Name', 'Amount');
+        }
+
+        else if($id == 5){
+            $tmpl = array('table_open' => '<table id="res_table" class="table table-hover table-responsive table-bordered display" style="width: 100%">');
+            $this->table->set_template($tmpl);
+
+            $this->table->set_heading('ID', 'Resolution');
+        }
     }
 
     public function loadtable()
