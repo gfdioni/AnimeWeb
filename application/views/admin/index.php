@@ -1,6 +1,6 @@
 <?php
 $assets= base_url()."assets/adminlte/";
-$admin= base_url()."index.php/admin/";
+$admin= base_url()."admin/";
 ?>
 <!DOCTYPE html>
 <html>

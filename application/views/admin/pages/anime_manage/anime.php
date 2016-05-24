@@ -1,6 +1,6 @@
 <?php
 $assets= base_url()."assets/adminlte/";
-$admin= base_url()."index.php/admin/";
+$admin= base_url()."admin/";
 $dir= __DIR__ ."/../../"; ?>
 <!DOCTYPE html>
 <html>
@@ -84,6 +84,6 @@ $dir= __DIR__ ."/../../"; ?>
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 	  	 <!-- Datatables and Select 2 for Anime Main Table -->
-	<script src="<?php echo base_url()."assets/"?>js/table_anime_main.js"></script>
+	<script src="<?php echo base_url()."assets/"?>js/table_anime.js"></script>
     <?php include $dir."footer.php" ?>
 </html>

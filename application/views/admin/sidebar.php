@@ -1,6 +1,6 @@
 <?php
 
-$admin= base_url()."index.php/admin/";
+$admin= base_url()."admin/";
 
 ?>
 <section class="sidebar">
@@ -58,6 +58,7 @@ $admin= base_url()."index.php/admin/";
                 <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Fansub Profile</a></li>
                 <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> User Management</a></li>
                 <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Data Management</a></li>
+				<li><a href="<?php echo $admin."genre" ?>"><i class="fa fa-circle-o"></i> Genre Management</a></li>
                 <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
               </ul>
             </li>
