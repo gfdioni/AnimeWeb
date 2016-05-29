@@ -1,6 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/*
+
+Urutan berdasarkan ID
+1 = Main Anime
+2 = Genre
+3 = Episode
+4 = File Hosting
+5 = Resolution
+
+*/
+
 class Admin extends CI_Controller
 {
 
@@ -19,13 +30,15 @@ class Admin extends CI_Controller
     function table_gen($id){
 
         if($id == 1){
-        $tmpl = array('table_open' => '<table id="anime_full" class="table table-hover table-responsive table-bordered display" style="width: 100%">');
-        $this->table->set_template($tmpl);
+			//Main Table Anime
+			$tmpl = array('table_open' => '<table id="anime_full" class="table table-hover table-responsive table-bordered display" style="width: 100%">');
+			$this->table->set_template($tmpl);
 
-        $this->table->set_heading('ID', 'Judul', 'Episode', 'Deskripsi singkat');
+			$this->table->set_heading('ID', 'Judul', 'Episode', 'Deskripsi singkat');
         }
 
         else if($id == 2){
+			//Table genre
             $tmpl = array('table_open' => '<table id="genre_table" class="table table-hover table-responsive table-bordered display" style="width: 100%">');
             $this->table->set_template($tmpl);
 
@@ -33,6 +46,7 @@ class Admin extends CI_Controller
         }
 
         else if($id == 3){
+			//Table Episode
             $tmpl = array('table_open' => '<table id="eps_table" class="table table-hover table-responsive table-bordered display" style="width: 100%">');
             $this->table->set_template($tmpl);
 
@@ -40,6 +54,7 @@ class Admin extends CI_Controller
         }
 
         else if($id == 4){
+			//Table File Hosting
             $tmpl = array('table_open' => '<table id="filehost_table" class="table table-hover table-responsive table-bordered display" style="width: 100%">');
             $this->table->set_template($tmpl);
 
@@ -47,6 +62,7 @@ class Admin extends CI_Controller
         }
 
         else if($id == 5){
+			//Table Resolusi
             $tmpl = array('table_open' => '<table id="res_table" class="table table-hover table-responsive table-bordered display" style="width: 100%">');
             $this->table->set_template($tmpl);
 
@@ -74,10 +90,12 @@ class Admin extends CI_Controller
     public function do_upload($id_form, $upload_path)
     {
         $config['upload_path'] = $upload_path;
-        $config['allowed_types'] = 'gif|jpg|png';
-        $new_name = time() . "_" . $_FILES["InputImage"]['name'];
+        $config['allowed_types'] = 'jpg|png|jpeg|bmp';
+        $new_name = time() . "_" . $_FILES[$id_form]['name'];
         $config['file_name'] = $new_name;
-        $config['max_size'] = '10000';
+        $config['max_size'] = '25600';
+        $config['max_width']  = '5000'; //lebar maksimum 5000 px
+        $config['max_height']  = '5000'; //tinggi maksimum 5000 px
         $config['remove_spaces'] = TRUE;
         $config['encrypt_name'] = FALSE;
 
@@ -176,7 +194,14 @@ class Admin extends CI_Controller
 
         //print_r($data);
         //print_r($result);
-       redirect('admin/genre/');
+       redirect('admin/anime/');
+    }
+
+    public function delanime()
+    {
+            $id = $this->input->post('id');
+            echo $id;
+            $this->admin_model->del($id);
     }
 
     public function addgenre()

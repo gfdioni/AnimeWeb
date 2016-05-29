@@ -57,6 +57,20 @@ class Admin_model extends CI_Model{
         $this->db->where('id',$id);
         return $this->db->update('anm_main',$data);
     }
-    
+
+    public function del($id)
+    {
+        $this->db->delete('anm_main', array('id' => $id));
+        if ($this->db->error()) {
+            $result = $this->db->error();
+        } else if (!$this->db->affected_rows()) {
+            $result = 'Error! ID ['.$id.'] not found';
+        } else {
+            $result = 'Success';
+        }
+
+        return $result;
+
+    }
     
 }

@@ -101,4 +101,58 @@
 			table.$('tr.selected').removeClass('selected');
 		});
 		
+		$('#btnDelete').on('click', function(){
+			swal({
+			  title: "Delete Confirmation",
+			  text: "Anda Yakin Delete Anime ini? Semua Episode yang berhubungan dengan Anime ini akan Terdelete. Proses ini tidak dapat di kembalikan!",
+			  type: "warning",
+			  showCancelButton: true,
+			  confirmButtonClass: "btn-danger",
+			  confirmButtonText: "Yes, delete it!",
+			  closeOnConfirm: false
+			},
+			function(){
+				console.log($("#IdAnime").val())
+				$.post("delanime",
+					{
+						id: $("#IdAnime").val()
+					},
+					function(data, status){
+						console.log(data);
+						console.log(status);
+						$("#IdAnime_show").val('');
+						$("#IdAnime").val('');
+						$("#InputTitle").val('');
+						$("#InputDescription").val('');
+						$("#InputGenre").select2("val","");
+						$(".btn-khusus").prop('disabled', true);
+						table.$('tr.selected').removeClass('selected');
+						swal("Deleted!", "Anime Telah Didelete", "success");
+						table.fnDraw();
+				});	
+			});
+			/*$.confirm('Anda Yakin Delete Anime ini? </br> Semua Episode yang berhubungan dengan Anime ini akan Terdelete. </br> Proses ini tidak dapat di kembalikan!',function(b){
+				if(b == true)
+				{
+					
+					$.ajax({
+						type: "POST",
+						url: "delanime",
+						data: {"id":$("#IdAnime").val()},
+						dataType: "json",
+						success: function(data){
+							$("#IdAnime_show").val('');
+							$("#IdAnime").val('');
+							$("#InputTitle").val('');
+							$("#InputDescription").val('');
+							$("#InputGenre").select2("val","");
+							$(".btn-khusus").prop('disabled', true);
+							table.$('tr.selected').removeClass('selected');
+						}
+					});
+				
+				}
+			});*/
+		});
+		
     });

@@ -53,7 +53,7 @@ $dir= __DIR__ ."/../../"; ?>
                     </div>
 					<div class="form-group">
                       <label for="InputEpisode">Total Episode</label>
-                      <input type="number" class="form-control" id="InputEpisode" name="InputEpisode" placeholder="Enter Total Episode" style="width: 10%" min="0">
+                      <input type="number" class="form-control" id="InputEpisode" name="InputEpisode" min="1" placeholder="Enter Total Episode" style="width: 10%" min="0">
                     </div>
                     <div class="form-group">
                       <label for="InputDescription">Description</label>
@@ -78,8 +78,9 @@ $dir= __DIR__ ."/../../"; ?>
                   <div class="box-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
 					<button type="reset" class="btn btn-primary btn-khusus" id="btnReset" disabled>Clear</button>
-                  </div>
                 </form>
+					<button type="button" class="btn btn-danger btn-khusus" id="btnDelete" disabled>Delete!</button>
+				  </div>
               </div>
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->

@@ -18,6 +18,9 @@
 	<link rel="stylesheet" href="<?php echo $assets; ?>plugins/datatables/jquery.dataTables.css">
 	<link rel="stylesheet" href="<?php echo $assets; ?>plugins/datatables/jquery.dataTables.min.css">
 	<link rel="stylesheet" href="<?php echo $assets; ?>plugins/datatables/jquery.dataTables_themeroller.css">
+	<!-- Sweet Alert Bootstrap -->
+	<script src="<?php echo $assets; ?>plugins/sweetalertbootstrap/sweetalert.js"></script>
+    <link rel="stylesheet" href="<?php echo $assets; ?>plugins/sweetalertbootstrap/sweetalert.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?php echo $assets; ?>dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
